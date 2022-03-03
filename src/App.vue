@@ -9,7 +9,7 @@
   <div v-if="edit">
     <input class="form" v-model="text">
     <button type="button" @click="editMemo">編集</button>
-    <button type="button">削除</button>
+    <button type="button" @click="deleteMemo">削除</button>
   </div>
 </template>
 
@@ -44,6 +44,13 @@ export default {
       const memoToEdit = this.memos[index]
       memoToEdit['text'] = this.text
       localStorage.setItem('memos', JSON.stringify(this.memos))
+      this.edit = false
+    },
+    deleteMemo: function() {
+      const index = this.memos.indexOf(this.targetMemo)
+      this.memos.splice(index, 1)
+      localStorage.setItem('memos', JSON.stringify(this.memos))
+      this.edit = false
     },
     displayEditForm: function(memo) {
       this.edit = true
