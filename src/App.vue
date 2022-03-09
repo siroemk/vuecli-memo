@@ -1,15 +1,21 @@
 <template>
-  <PageTitle msg="Memo App"/>
-  <div id="app">
-    <ul>
-      <li v-for="memo in memos" :key="memo.id" @click="displayEditForm(memo)">{{ memo.text }}</li>
-      <button type="button" @click="addMemo">+</button>
-    </ul>
-  </div>
-  <div v-if="edit">
-    <input class="form" v-model="text">
-    <button type="button" @click="editMemo">編集</button>
-    <button type="button" @click="deleteMemo">削除</button>
+  <PageTitle msg="Memo"/>
+  <div class="memo-container">
+    <div id="memo-app">
+      <ul>
+        <li v-for="memo in memos" :key="memo.id" @click="displayEditForm(memo)" class="memo–text">
+            {{ memo.text }}
+        </li>
+        <button type="button" @click="addMemo">+</button>
+      </ul>
+    </div>
+    <div class="form-box" v-if="edit">
+      <textarea class="form" v-model="text" cols="30" rows="6"></textarea>
+      <div class="button-box">
+        <button type="button" class="edit-button" @click="editMemo">編集</button>
+        <button type="button" class="delete-button" @click="deleteMemo">削除</button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -62,12 +68,64 @@ export default {
 </script>
 
 <style>
-#app {
+body {
+  background: #B0BEC5;
+}
+li {
+  list-style: none;
+}
+#memo-app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  color: #2b2b2b;
+  margin-top: 20px;
+  width: 50%;
+}
+.memo-container {
+  display: flex;
+  background: #fff;
+  border-radius: 10px;
+  margin: 0 20px;
+}
+.memo–text {
+  padding-bottom: 16px;
+}
+.memo–text:hover {
+  opacity: 0.7;
+}
+.form-box {
+  margin-top: 40px;
+}
+.form {
+  border: 3px #dcdcdc solid;
+  padding: 10px;
+  border-radius: 6px;
+  color: #2b2b2b;
+  font-size: 16px;
+}
+.button-box {
+  display: flex;
+  margin-top: 10px;
+}
+.edit-button {
+  margin-right: 20px;
+  background: #26A69A;
+  width: 140px;
+  border-radius: 4px;
+  border: none;
+  color: #ffffff;
+}
+.delete-button {
+  margin-right: 20px;
+  background: #E57373;
+  width: 140px;
+  border-radius: 4px;
+  border: none;
+  color: #ffffff;
+  line-height: 30px;
+}
+button:hover {
+  opacity: 0.8;
 }
 </style>
