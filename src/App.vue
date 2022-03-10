@@ -36,7 +36,7 @@ export default {
     }
   },
   methods: {
-    addMemo: function() {
+    addMemo () {
       this.memos.push({
         id: new Date().getTime().toString(),
         text: '新規メモ',
@@ -45,20 +45,19 @@ export default {
       const memo = this.memos.slice(-1)[0]
       this.displayEditForm(memo)
     },
-    editMemo: function() {
-      const index = this.memos.indexOf(this.targetMemo)
-      const memoToEdit = this.memos[index]
-      memoToEdit['text'] = this.text
+    editMemo () {
+      const memoToEdit = this.memos.find((memo) => memo.id === this.targetMemo.id)
+      memoToEdit.text = this.text
       localStorage.setItem('memos', JSON.stringify(this.memos))
       this.edit = false
     },
-    deleteMemo: function() {
-      const index = this.memos.indexOf(this.targetMemo)
+    deleteMemo () {
+      const index = this.memos.findIndex((memo) => memo.id === this.targetMemo.id)
       this.memos.splice(index, 1)
       localStorage.setItem('memos', JSON.stringify(this.memos))
       this.edit = false
     },
-    displayEditForm: function(memo) {
+    displayEditForm (memo) {
       this.edit = true
       this.text = memo.text
       this.targetMemo = memo
