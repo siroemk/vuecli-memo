@@ -10,7 +10,7 @@
       </ul>
     </div>
     <div class="form-box" v-if="edit">
-      <textarea class="form" v-model="text" cols="30" rows="6"></textarea>
+      <textarea class="form" v-model="text" @blur="cancelEditing" cols="30" rows="6"></textarea>
       <div class="button-box">
         <button type="button" class="edit-button" @click="editMemo">編集</button>
         <button type="button" class="delete-button" @click="deleteMemo">削除</button>
@@ -61,6 +61,9 @@ export default {
       this.edit = true
       this.text = memo.text
       this.editingMemo = memo
+    },
+    cancelEditing () {
+      this.edit = false
     },
     save (memos) {
       localStorage.setItem('memos', JSON.stringify(memos))
