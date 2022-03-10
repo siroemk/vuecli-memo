@@ -27,40 +27,43 @@ export default {
   components: {
     PageTitle
   },
-  data() {
-    return{
+  data () {
+    return {
       memos: JSON.parse(localStorage.getItem('memos')),
       text: '',
       edit: false,
-      targetMemo: ''
+      editingMemo: ''
     }
   },
   methods: {
     addMemo () {
       this.memos.push({
         id: new Date().getTime().toString(),
-        text: '新規メモ',
+        text: '新規メモ'
       })
-      localStorage.setItem('memos', JSON.stringify(this.memos))
+      this.save(this.memos)
       const memo = this.memos.slice(-1)[0]
       this.displayEditForm(memo)
     },
     editMemo () {
-      const memoToEdit = this.memos.find((memo) => memo.id === this.targetMemo.id)
+      const memoToEdit = this.memos.find((memo) => memo.id === this.editingMemo.id)
       memoToEdit.text = this.text
-      localStorage.setItem('memos', JSON.stringify(this.memos))
+      this.save(this.memos)
       this.edit = false
     },
     deleteMemo () {
-      const index = this.memos.findIndex((memo) => memo.id === this.targetMemo.id)
+      const index = this.memos.findIndex((memo) => memo.id === this.editingMemo.id)
       this.memos.splice(index, 1)
-      localStorage.setItem('memos', JSON.stringify(this.memos))
+      this.save(this.memos)
       this.edit = false
     },
     displayEditForm (memo) {
       this.edit = true
       this.text = memo.text
-      this.targetMemo = memo
+      this.editingMemo = memo
+    },
+    save (memos) {
+      localStorage.setItem('memos', JSON.stringify(memos))
     }
   }
 }
