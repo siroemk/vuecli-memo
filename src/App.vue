@@ -4,7 +4,7 @@
     <div id="memo-app">
       <ul>
         <li v-for="memo in memos" :key="memo.id" @click="displayEditForm(memo)" class="memo–text">
-            {{ memo.text }}
+            {{ memo.text.split('\n')[0] }}
         </li>
         <button type="button" @click="addMemo">+</button>
       </ul>
