@@ -9,8 +9,8 @@
         <button type="button" class="add-btn" @click="addMemo">+</button>
       </ul>
     </div>
-    <div v-if="edit">
-      <textarea class="form" v-model="text" cols="30" rows="6"></textarea>
+    <div v-if="editing">
+      <textarea class="form" v-model="text" @blur="editMemo" cols="30" rows="6"></textarea>
       <div class="btn-box">
         <button type="button" class="edit-btn" @click="editMemo">編集</button>
         <button type="button" class="delete-btn" @click="deleteMemo">削除</button>
@@ -31,7 +31,7 @@ export default {
     return {
       memos: JSON.parse(localStorage.getItem('memos')) || [],
       text: '',
-      edit: false,
+      editing: false,
       editingMemo: ''
     }
   },
@@ -49,21 +49,18 @@ export default {
       const memoToEdit = this.memos.find((memo) => memo.id === this.editingMemo.id)  
       memoToEdit.text = this.text 
       this.save(this.memos)
-      this.edit = false
+      this.editing = false
     },
     deleteMemo () {
       const index = this.memos.findIndex((memo) => memo.id === this.editingMemo.id)
       this.memos.splice(index, 1)
       this.save(this.memos)
-      this.edit = false
+      this.editing = false
     },
     displayEditForm (memo) {
-      this.edit = true
+      this.editing = true
       this.text = memo.text
       this.editingMemo = memo
-    },
-    cancelEditing () {
-      this.edit = false
     },
     save (memos) {
       localStorage.setItem('memos', JSON.stringify(memos))
