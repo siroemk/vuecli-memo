@@ -4,7 +4,7 @@
     <div id="memo-app">
       <ul>
         <li v-for="memo in memos" :key="memo.id" @click="displayEditForm(memo)" class="memo-list">
-            {{ memo.text.split('\n')[0] }}
+            {{ memoTitle(memo.text) }}
         </li>
         <button type="button" class="add-btn" @click="addMemo">+</button>
       </ul>
@@ -67,6 +67,11 @@ export default {
     },
     save (memos) {
       localStorage.setItem('memos', JSON.stringify(memos))
+    }
+  },
+  computed: {
+    memoTitle: () => (text) => {
+      return text.split('\n')[0]
     }
   }
 }
