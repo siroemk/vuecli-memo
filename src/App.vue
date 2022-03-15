@@ -46,8 +46,8 @@ export default {
       this.displayEditForm(memo)
     },
     editMemo () {
-      const memoToEdit = this.memos.find((memo) => memo.id === this.editingMemo.id)  
-      memoToEdit.text = this.text 
+      const memoToEdit = this.memos.find((memo) => memo.id === this.editingMemo.id)
+      memoToEdit.text = this.text
       this.save(this.memos)
       this.editing = false
     },
